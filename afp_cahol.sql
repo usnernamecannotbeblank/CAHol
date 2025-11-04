@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Okt 27. 22:51
+-- Létrehozás ideje: 2025. Nov 04. 21:19
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -122,17 +122,19 @@ INSERT INTO `kinel_van` (`id`, `dolg_id`, `rendszam`) VALUES
 
 CREATE TABLE `osztalyok` (
   `osztaly_id` varchar(10) NOT NULL,
-  `osztaly_nev` varchar(50) NOT NULL
+  `osztaly_nev` varchar(50) NOT NULL,
+  `leiras` varchar(200) DEFAULT NULL,
+  `vezeto` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `osztalyok`
 --
 
-INSERT INTO `osztalyok` (`osztaly_id`, `osztaly_nev`) VALUES
-('besz', 'Beszerzési osztály'),
-('gazd', 'Gazdasági osztály'),
-('term', 'Termelés');
+INSERT INTO `osztalyok` (`osztaly_id`, `osztaly_nev`, `leiras`, `vezeto`) VALUES
+('besz', 'Beszerzési osztály', NULL, NULL),
+('gazd', 'Gazdasági osztály', NULL, NULL),
+('term', 'Termelés', NULL, NULL);
 
 -- --------------------------------------------------------
 
