@@ -35,19 +35,19 @@
 
     <h1>Regisztráció</h1>
     <?php
-        if($_SESSION['cahol_jogosultsag'] == 'admin') {
-            $_SESSION['cahol_jog_megjel'] = 'Adminisztrátor';
-        }
-        if($_SESSION['cahol_jogosultsag'] == 'user') {
-            $_SESSION['cahol_jog_megjel'] = 'Felhasználó';
-        }
-        if($_SESSION['cahol_jogosultsag'] == 'suser') {
-            $_SESSION['cahol_jog_megjel'] = 'Szuper Felhasználó';
-        }
-        if($_SESSION['cahol_jogosultsag'] == 'reg') {
-            $_SESSION['cahol_jog_megjel'] = 'Regisztrált - csak';
-        }
         if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
+            if($_SESSION['cahol_jogosultsag'] == 'admin') {
+                $_SESSION['cahol_jog_megjel'] = 'Adminisztrátor';
+            }
+            if($_SESSION['cahol_jogosultsag'] == 'user') {
+                $_SESSION['cahol_jog_megjel'] = 'Felhasználó';
+            }
+            if($_SESSION['cahol_jogosultsag'] == 'suser') {
+                $_SESSION['cahol_jog_megjel'] = 'Szuper Felhasználó';
+            }
+            if($_SESSION['cahol_jogosultsag'] == 'reg') {
+                $_SESSION['cahol_jog_megjel'] = 'Regisztrált - csak';
+            }
             echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp &nbsp ( " . $_SESSION['cahol_jog_megjel'] .  " ) &nbsp &nbsp &nbsp </b><br>";
         }
     ?>    
