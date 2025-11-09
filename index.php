@@ -3,7 +3,7 @@
         session_start();
     }
     if(isset($_SESSION['cahol_nev']))
-        header("Location: autok_lista.php");
+        header("Location: views/autok_lista.php");
     else
-        header("Location: bejelentkezes.php");
+        header("Location: views/bejelentkezes.php");
 ?>
