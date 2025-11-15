@@ -50,6 +50,7 @@
         }
         if(isset($_SESSION['cahol_nev']) && isset($_SESSION['cahol_dolg_id'])) {
             echo "<p align='right'> <b> Bejelentkezve : " . $_SESSION['cahol_dolg_id'] . " &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp " . $_SESSION['cahol_nev'] . " &nbsp &nbsp &nbsp ( " . $_SESSION['cahol_jog_megjel'] .  " ) &nbsp &nbsp &nbsp </b><br>";
+        }
     ?>
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
