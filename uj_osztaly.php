@@ -64,7 +64,7 @@
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
 
-    <form id="ujAutoForm" enctype="multipart/form-data">
+    <form id="ujOsztalyForm" enctype="multipart/form-data">
         <table>
             <tr>
                 <td><label for="azonosito">Azonosító</label></td>
@@ -83,11 +83,41 @@
                 <td><input type="text" id="vezeto"/></td>
             </tr>
         </table>
-        <input type="submit" value="Hozzáadás" id="submitBtn"/>
+        <input type="submit" value="Hozzáadás" id="submit"/>
     </form>
 
 
     <script>
+        
+        document.getElementById('ujOsztalyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jsonData = JSON.stringify({
+                osztaly_id : document.getElementById('azonosito').value,
+                osztaly_nev : document.getElementById('osztaly_nev').value,
+                osztaly_leiras : document.getElementById('leiras').value,
+                osztaly_vezeto : document.getElementById('vezeto').value
+            });
+
+            fetch("osztalyok.php", {
+                method: "POST",
+                header: {"Content-Type" : "application/json"},
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('errDiv').innerText = data.error;
+                } else if (data.success) {
+                    window.location.href = "osztalyok_lista.php";
+                } else if (data.msg) {
+                    document.getElementById('msgDiv').innerText = data.msg;
+                }
+            })
+            .catch(err => {
+                document.getElementById('errDiv').innerText = "Hiba történt a feltöltés során.";
+                console.error(err);
+            });
+        });
     </script>
 </body>
 </html>

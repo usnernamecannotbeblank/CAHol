@@ -12,6 +12,8 @@
         $adatok = json_decode(file_get_contents("php://input"), true);
         $osztaly_id = $adatok['osztaly_id'];
         $osztaly_nev = $adatok['osztaly_nev'];
+        $osztaly_leiras = $adatok['osztaly_leiras'];
+        $osztaly_vezeto = $adatok['osztaly_vezeto'];
         try {
             $query = "SELECT * FROM osztalyok WHERE osztaly_id = ?";
             $muvelet = $kapcsolat->prepare($query);
@@ -21,9 +23,9 @@
                 echo json_encode(["msg" => "A megadott azonosítóval már van osztály!"]);
             }
             else {
-                $query = "INSERT INTO osztalyok (osztaly_id, osztaly_nev) VALUES(? , ? )";
+                $query = "INSERT INTO osztalyok (osztaly_id, osztaly_nev, leiras, vezeto) VALUES(?, ?, ?, ?)";
                 $muvelet = $kapcsolat->prepare($query);
-                $muvelet->execute([$osztaly_id, $osztaly_nev]);
+                $muvelet->execute([$osztaly_id, $osztaly_nev, $osztaly_leiras, $osztaly_vezeto]);
                 echo json_encode(["success" => "Sikeres hozzáadás!"]);
             }
         } catch(PDOException $e) {
