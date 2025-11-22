@@ -55,7 +55,7 @@
     <div id="errDiv" style="color: red;"></div>
     <div id="msgDiv" style="font-weight: bolder;" ></div>
 
-    <form id="ujAutoForm" enctype="multipart/form-data">
+    <form id="ujTelephelyForm" enctype="multipart/form-data">
         <table>
             <tr>
                 <td><label for="azonosito">Azonosító</label></td>
@@ -75,6 +75,34 @@
 
 
     <script>
+            document.getElementById('ujTelephelyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jsonData = JSON.stringify({
+                tlph_id : document.getElementById('azonosito').value,
+                nev : document.getElementById('telephely_nev').value,
+                cim : document.getElementById('cim').value,
+            });
+
+            fetch("telephelyek.php", {
+                method: "POST",
+                header: {"Content-Type" : "application/json"},
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('errDiv').innerText = data.error;
+                } else if (data.success) {
+                    window.location.href = "telephelyek_lista.php";
+                } else if (data.msg) {
+                    document.getElementById('msgDiv').innerText = data.msg;
+                }
+            })
+            .catch(err => {
+                document.getElementById('errDiv').innerText = "Hiba történt a feltöltés során.";
+                console.error(err);
+            });
+        });
     </script>
 </body>
 </html>

@@ -177,7 +177,7 @@
             const nev = document.getElementById('updateNev').value;
             const cim = document.getElementById('updateCim').value;
 
-            fetch("auto_tipus.php", {
+            fetch("telephelyek.php", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

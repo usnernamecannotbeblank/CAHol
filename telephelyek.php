@@ -22,7 +22,7 @@
                 echo json_encode(["msg" => "A megadott azonosítóval már van telephely!"]);
             }
             else {
-                $query = "INSERT INTO telephely (tlph_id, nev, cim) VALUES(? , ? , ?)";
+                $query = "INSERT INTO telephely (tlph_id, telephely_nev, cim) VALUES(? , ? , ?)";
                 $muvelet = $kapcsolat->prepare($query);
                 $muvelet->execute([$tlph_id, $nev, $cim]);
                 echo json_encode(["success" => "Sikeres hozzáadás!"]);
@@ -43,10 +43,10 @@
     else if($_SERVER['REQUEST_METHOD'] == "PUT") {
         $adatok = json_decode(file_get_contents("php://input"), true);
         $tlph_id = $adatok['tlph_id'];
-        $nev = $adatok['nev'];
+        $nev = $adatok['telephely_nev'];
         $cim = $adatok['cim'];
         try {
-            $query = "UPDATE telephely SET nev = ?, cim = ? WHERE tlph_id = ?";
+            $query = "UPDATE telephely SET telephely_nev = ?, cim = ? WHERE tlph_id = ?";
             $muvelet = $kapcsolat->prepare($query);
             $muvelet->execute([$nev, $cim, $tlph_id]);
             
