@@ -12,8 +12,10 @@
             background-size: cover;
             background-position: center; 
             background-repeat: no-repeat;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 30px;
             margin: 0;
         }
 
@@ -129,7 +131,7 @@
                     var beszerzesTD = row.insertCell(5);
                     beszerzesTD.innerText = item.beszerzes;
                     var foto_urlTD = row.insertCell(6);
-                    foto_urlTD.innerHTML = `<img src="${item.foto_url}" width="200px" height="125px">`;
+                    foto_urlTD.innerHTML = `<img src="../kepek/db/${item.foto_url}" width="200" height="125">`;
 
                     // Csak akkor módosíthassunk, ha adminok vagyunk (következő a műveletek oszlop, ide a megfelelő nyomógomb elhelyezése)
                     <?php if($_SESSION['cahol_jogosultsag'] == "admin"): ?>

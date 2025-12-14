@@ -69,21 +69,39 @@
         }
     }
     else if($_SERVER['REQUEST_METHOD'] == "DELETE") {
-        $tip_id = json_decode(file_get_contents("php://input"), true)['tip_id'];
+        $tip_id = (int)(json_decode(file_get_contents("php://input"), true)['tip_id'] ?? 0);
+
+        if ($tip_id <= 0) {
+            echo json_encode(["error" => "Hiányzó vagy hibás tip_id."]);
+            exit;
+        }
+
         try {
+
+            $query = "SELECT 1 FROM autok WHERE tip_id = ? LIMIT 1";
+            $muvelet = $kapcsolat->prepare($query);
+            $muvelet->execute([$tip_id]);
+
+            if ($muvelet->fetchColumn()) {
+                echo json_encode(["error" => "Nem törölhető: van olyan autó, amely ezt a típust használja."]);
+                exit;
+            }
+
             $query = "DELETE FROM auto_tipus WHERE tip_id = ?";
             $muvelet = $kapcsolat->prepare($query);
             $muvelet->execute([$tip_id]);
+
             if($muvelet->rowCount() > 0) {
                 echo json_encode(["success" => "Sikeres törlés!"]);
-            }
-            else {
+            } else {
                 echo json_encode(["error" => "A megadott azonosítóval nincs autó típus!"]);
             }
         } catch(PDOException $e) {
             echo json_encode(["error" => $e->getMessage()]);
         }
+        exit;
     }
+
     else {
         echo json_encode(["error" => "Hibás kérés!"]);
     }

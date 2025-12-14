@@ -95,7 +95,7 @@
                     var markatipusTD = row.insertCell(2);
                     markatipusTD.innerText = item.markatipus;
                     var foto_urlTD = row.insertCell(3);
-                    foto_urlTD.innerHTML = `<img src="${item.foto_url}" width="200px" height="125px">`;
+                    foto_urlTD.innerHTML = `<img src="../kepek/db/${item.foto_url}" width="200" height="125">`;
 
                     //Művelet oszlop
                     if(item.kinelID) {

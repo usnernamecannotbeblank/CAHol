@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2025 at 07:46 PM
+-- Generation Time: Dec 12, 2025 at 08:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `autok` (
   `rendszam` varchar(15) NOT NULL,
-  `tip_id` varchar(10) NOT NULL,
+  `tip_id` int(10) NOT NULL,
   `uzemanyag` varchar(10) NOT NULL,
   `szin` varchar(20) NOT NULL,
   `beszerzes` date NOT NULL,
@@ -41,9 +41,13 @@ CREATE TABLE `autok` (
 --
 
 INSERT INTO `autok` (`rendszam`, `tip_id`, `uzemanyag`, `szin`, `beszerzes`, `foto_url`) VALUES
-('NVS-540', '2', 'Benzin', 'Fehér', '2016-05-01', ''),
-('PSP-820', '1', 'Benzin', 'Grafit', '2018-03-28', ''),
-('TV 82-68', '8', 'Benzin', 'Fehér', '1988-06-01', 'kepek_db/6844e0566908c_250px-Trabant_601_Universal_1970.jpg');
+('HTP - 142', 13, 'Dízel', 'Piros', '2020-08-05', '693c63a13ffd0_ford_red.jpg'),
+('IRU - 740', 12, 'Benzin', 'Szürke', '2002-05-10', '693c62045ead6_skoda_grey.jpg'),
+('LDP - 858', 14, 'Benzin', 'Piros', '2008-11-09', '693c63ed48891_suzuki_red.jpg'),
+('LTG - 637', 12, 'Benzin', 'Kék', '2017-11-06', '693c628ecf939_skoda_blue.jpg'),
+('PHP - 008', 16, 'Benzin', 'Fekete', '2009-02-28', '693c65929ee70_volkswagen_black.jpg'),
+('RGS - 786', 15, 'Benzin', 'Szürke', '2005-10-07', '693c64feccc9b_renault_grey.jpg'),
+('USG - 692', 1, 'Benzin', 'Fekete', '2015-04-01', '693c62291e9be_opel_black.jpg');
 
 -- --------------------------------------------------------
 
@@ -64,9 +68,11 @@ CREATE TABLE `auto_tipus` (
 
 INSERT INTO `auto_tipus` (`tip_id`, `marka`, `tipus`, `felepitmeny`) VALUES
 (1, 'Opel', 'Corsa', '5 ajtós'),
-(2, 'Skoda', 'Octavia', 'Sedan'),
-(7, 'Ford', 'Mondeo', 'Sedan'),
-(8, 'Trabant', '601', 'Kombi');
+(12, 'Skoda', 'Octavia', '5 ajtós'),
+(13, 'Ford', 'Fiesta', '3 ajtós'),
+(14, 'Suzuki', 'Swift', '5 ajtós'),
+(15, 'Renault', 'Clio', '3 ajtós'),
+(16, 'Volkswagen', 'Golf', '5 ajtós');
 
 -- --------------------------------------------------------
 
@@ -91,11 +97,14 @@ CREATE TABLE `felhasznalok` (
 INSERT INTO `felhasznalok` (`dolg_id`, `nev`, `jelszo`, `jogosultsag`, `osztaly_id`, `foto_d_url`, `email`) VALUES
 (1, 'Admin', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'admin', 'gazd', '', ''),
 (2, 'Tóth László', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'gazd', '', 'latohu@hotmail.com'),
-(3, 'Németh Attila', 'e10adc3949ba59abbe56e057f20f883e', 'user', 'term', '', ''),
-(4, 'Nagy Lajos', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'term', '', 'naki@mollie.com'),
 (5, 'Tóth Ádám', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'term', '', ''),
-(6, 'Nagy Gergő', '5ea01af357a91827b995e24ae7a8baa8', 'user', '', '', 'nagy.g3rg0@gmail.com'),
-(7, 'Teszt Elek', 'd95151107f8886dcef1fe2f0963a681f', 'user', '', '', 'teszt@gmail.com');
+(8, 'Kovács László', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'igaz', '', 'laszlo.kovacs@gmail.com'),
+(9, 'Nagy Ágnes', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'agnes.nagy@gmail.com'),
+(10, 'Szabó Péter', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'peter.szabo@gmail.com'),
+(11, 'Tóth Katalin', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'katalin.toth@gmail.com'),
+(12, 'Varga Gábor', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'gabor.varga@gmail.com'),
+(13, 'Horváth Zsuzsanna', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', '', '', 'zsuzsanna.horvath@gmail.com'),
+(14, 'Nagy Gergő', '7fd4e0ed6c1c2bad7e4802576f2141e0', 'user', 'igaz', '', 'nagy.g3rg0@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -108,13 +117,6 @@ CREATE TABLE `kinel_van` (
   `dolg_id` int(10) NOT NULL,
   `rendszam` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kinel_van`
---
-
-INSERT INTO `kinel_van` (`id`, `dolg_id`, `rendszam`) VALUES
-(7, 2, 'NVS-540');
 
 -- --------------------------------------------------------
 
@@ -136,7 +138,9 @@ CREATE TABLE `osztalyok` (
 INSERT INTO `osztalyok` (`osztaly_id`, `osztaly_nev`, `leiras`, `vezeto`) VALUES
 ('besz', 'Beszerzési osztály', NULL, NULL),
 ('gazd', 'Gazdasági osztály', NULL, NULL),
-('term', 'Termelés', NULL, NULL);
+('igaz', 'Igazgatósági osztály', '', 'Rejtő Jenő'),
+('kont', 'Kontrolling osztály', '', ''),
+('term', 'Termelési osztály', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -156,7 +160,9 @@ CREATE TABLE `telephely` (
 
 INSERT INTO `telephely` (`tlph_id`, `telephely_nev`, `cim`) VALUES
 (1, 'Huszti', '1032 Budapest\r\nHuszti út 60'),
-(2, 'Szada', 'Szada\r\nIpari park 1');
+(2, 'Szada', 'Szada\r\nIpari park 1'),
+(3, 'Polgár', '1033 Budapest, Polgár u. 6-10. '),
+(4, 'Bécsi', '1032 Budapest, Bécsi út 166-168. ');
 
 --
 -- Indexes for dumped tables
@@ -166,7 +172,8 @@ INSERT INTO `telephely` (`tlph_id`, `telephely_nev`, `cim`) VALUES
 -- Indexes for table `autok`
 --
 ALTER TABLE `autok`
-  ADD PRIMARY KEY (`rendszam`);
+  ADD PRIMARY KEY (`rendszam`),
+  ADD KEY `tip_id` (`tip_id`);
 
 --
 -- Indexes for table `auto_tipus`
@@ -184,7 +191,9 @@ ALTER TABLE `felhasznalok`
 -- Indexes for table `kinel_van`
 --
 ALTER TABLE `kinel_van`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dolg_id` (`dolg_id`),
+  ADD KEY `rendszam` (`rendszam`);
 
 --
 -- Indexes for table `osztalyok`
@@ -206,25 +215,42 @@ ALTER TABLE `telephely`
 -- AUTO_INCREMENT for table `auto_tipus`
 --
 ALTER TABLE `auto_tipus`
-  MODIFY `tip_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `tip_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `dolg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `dolg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kinel_van`
 --
 ALTER TABLE `kinel_van`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `telephely`
 --
 ALTER TABLE `telephely`
-  MODIFY `tlph_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `tlph_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `autok`
+--
+ALTER TABLE `autok`
+  ADD CONSTRAINT `autok_ibfk_1` FOREIGN KEY (`tip_id`) REFERENCES `auto_tipus` (`tip_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `kinel_van`
+--
+ALTER TABLE `kinel_van`
+  ADD CONSTRAINT `kinel_van_ibfk_1` FOREIGN KEY (`dolg_id`) REFERENCES `felhasznalok` (`dolg_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kinel_van_ibfk_2` FOREIGN KEY (`rendszam`) REFERENCES `autok` (`rendszam`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
